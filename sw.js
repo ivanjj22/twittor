@@ -2,7 +2,7 @@
 importScripts('js/sw-utils.js');
 
 const STATIC_CACHE_NAME = "static-v3";
-const DYNAMIC_CACHE_NAME = "dynamic-v1";
+const DYNAMIC_CACHE_NAME = "dynamic-v2";
 const INMUTABLE_CACHE_NAME = "inmutable-v1";
 
 const APP_SHELL = [
@@ -43,6 +43,10 @@ self.addEventListener('activate', e => {
     .then(keys => {
         keys.forEach(element => {
             if(element !== STATIC_CACHE_NAME && element.includes('static')) {
+                return caches.delete(element)
+            }
+
+            if(element !== DYNAMIC_CACHE_NAME && element.includes('dynamic')) {
                 return caches.delete(element)
             }
         });
